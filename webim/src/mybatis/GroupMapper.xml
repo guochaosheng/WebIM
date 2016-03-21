@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.webim.dao.GroupDao">
+    <insert id="createGroup" parameterType="org.webim.entity.Group">
+        insert into im_group(
+        webim_group_id,
+        webim_group_name,
+        webim_group_face
+        )
+        values(
+        #{id},
+        #{name},
+        #{face}
+        );
+    </insert>
+
+    <select id="queryGroupsForSet" resultType="org.webim.entity.Group">
+        select
+		webim_group_id as id,
+		webim_group_name as name,
+		webim_group_face as face
+		from im_group
+		where
+		webim_group_id
+		in
+		(
+		select
+		webim_group_id
+		from im_user_group
+		where
+		webim_groupset_id = #{groupSetId}
+		and
+		webim_user_id = #{userId}
+		)
+    </select>
+
+    <select id="queryUsersByGroupId" parameterType="string" resultType="org.webim.entity.User">
+        select
+		webim_user_id as id,
+		webim_user_name as name,
+		webim_user_face as face
+		from im_user
+		where webim_user_id
+		in
+		(
+		select
+		webim_user_id
+		from im_user_group
+		where
+		webim_group_id = #{groupId}
+		)
+    </select>
+</mapper>

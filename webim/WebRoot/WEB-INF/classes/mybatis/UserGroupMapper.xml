@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.webim.dao.UserGroupDao">
+     <insert id="addUserGroup" parameterType="org.webim.entity.UserGroup">
+        insert into im_user_group(
+        webim_user_group_id,
+        webim_user_id,
+        webim_group_id,
+        webim_groupset_id
+        )
+        values(
+        #{userGroupId},
+        #{userId},
+        #{groupId},
+        #{groupSetId}
+        )
+    </insert>
+</mapper>

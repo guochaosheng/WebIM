@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.webim.dao.UserFriendSetDao">
+     <select id="queryUserFriendSet" parameterType="string" resultType="org.webim.entity.FriendSet">
+        select
+            webim_friendset_id as id,
+            webim_friendset_name as name,
+            webim_friendset_nums as nums
+            from im_friendset
+        where webim_friendset_id
+        in(
+            select
+            webim_friendset_id
+            from im_user_friend
+            where webim_user_id=#{userId}
+          )
+     </select>
+</mapper>

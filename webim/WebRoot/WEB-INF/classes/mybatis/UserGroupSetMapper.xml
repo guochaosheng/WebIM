@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.webim.dao.UserGroupSetDao">
+    <select id="queryUserGroupSet" parameterType="string" resultType="org.webim.entity.GroupSet">
+        select
+		webim_groupset_id as id,
+		webim_groupset_name as name,
+		webim_groupset_nums as nums
+		from im_groupset
+		where
+		webim_groupset_id
+		in
+		(
+		select
+		webim_groupset_id
+		from im_user_group
+		where webim_user_id = #{userId}
+		)
+    </select>
+</mapper>
